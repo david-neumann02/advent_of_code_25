@@ -1,6 +1,8 @@
 mod day1;
+mod day2;
 
 use day1::day1;
+use day2::day2;
 use std::ffi::OsStr;
 use std::fs::File;
 use std::io::{BufReader, Read};
@@ -9,8 +11,8 @@ use std::time::Instant;
 
 struct Paths{
     day1: &'static OsStr,
-    /*day2: &'static OsStr,
-    day3: &'static OsStr,
+    day2: &'static OsStr,
+    /*day3: &'static OsStr,
     day4: &'static OsStr,
     day5: &'static OsStr,
     day6: &'static OsStr,
@@ -20,9 +22,9 @@ struct Paths{
 }
 
 static PATHS: LazyLock<Paths> = LazyLock::new(|| Paths{
-    day1: OsStr::new(r"data\day1\input.txt"),
-    /*day2: OsStr::new(r"data/day2/input.txt"),
-    day3: OsStr::new("data/day3/input.txt"),
+    day1: OsStr::new(r"data/day1/input.txt"),
+    day2: OsStr::new(r"data/day2/input.txt"),
+    /*day3: OsStr::new("data/day3/input.txt"),
     day4: OsStr::new(r"data/day4/input.txt"),
     day5: OsStr::new(r"data/day5/input.txt"),
     day6: OsStr::new(r"data/day6/input.txt"),
@@ -33,10 +35,9 @@ static PATHS: LazyLock<Paths> = LazyLock::new(|| Paths{
 
 fn main() {
     let start = Instant::now();
-    let input = get_input(PATHS.day1);
-    //test_day17();
+    let input = get_input(PATHS.day2);
     let lines = get_lines(&input);
-    let res = day1(&lines);
+    let res = day2(&lines);
     let duration = start.elapsed();
     println!("{:?}, Duration: {:?}", res, duration)
 }
