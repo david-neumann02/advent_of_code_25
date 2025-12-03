@@ -18,7 +18,6 @@ fn max_two_num_in_line(line: &str) -> u64 {
             d1 = i; 
         }
     };
-    println!("d1: {d1}, d2: {d2}");
     d1 * 10 + d2
 }
 
