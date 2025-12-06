@@ -46,7 +46,7 @@ fn main() {
     let duration = start.elapsed();
     println!("Day 1 Result: {:?}, Duration: {:?}", res, duration);
 
-    //day 2
+    //day 2 (Currently not correct)
     let start = Instant::now();
     let input = get_input(PATHS.day2);
     let lines = get_lines(&input);
