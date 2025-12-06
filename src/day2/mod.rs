@@ -1,17 +1,18 @@
-use std::ops::{RangeInclusive};
-
-
+use std::ops::RangeInclusive;
 
 pub(crate) fn day2(input_lines: &Vec<&str>) -> u64 {
-    let intervals: Vec<RangeInclusive<u64>> = input_lines.iter().next().unwrap()
-        .split(",").map(
-            |s| {
-                let (s1, s2) = s.split_once("-").unwrap();
-                let (n1, n2) : (u64, u64) = (s1.parse().unwrap(), s2.parse().unwrap());
-                n1..=n2
-            }
-        ).collect();
-    
+    let intervals: Vec<RangeInclusive<u64>> = input_lines
+        .iter()
+        .next()
+        .unwrap()
+        .split(",")
+        .map(|s| {
+            let (s1, s2) = s.split_once("-").unwrap();
+            let (n1, n2): (u64, u64) = (s1.parse().unwrap(), s2.parse().unwrap());
+            n1..=n2
+        })
+        .collect();
+
     intervals.iter().map(|r| sum_doubles(r)).sum()
 }
 
@@ -35,7 +36,7 @@ fn sum_doubles(interval: &RangeInclusive<u64>) -> u64 {
 
     let front_number: u64 = n1.to_string().get(0..d1).unwrap().parse().unwrap();
 
-    let d2 = l2/2;
+    let d2 = l2 / 2;
     if l1mod == 1 {
         n2 = 10u64.pow((2 * d2) as u32) - 1
     }
@@ -44,12 +45,18 @@ fn sum_doubles(interval: &RangeInclusive<u64>) -> u64 {
 
     println!("l1: {l1}, l2: {l2}, n1: {n1}, n2: {n2}, d1: {d1}, d2: {d2}");
 
-    (front_number..=back_number).map(
-        |current_number| {
-            let doubled_number = (current_number.to_string() + &current_number.to_string()).parse().unwrap();
-            if interval.contains(&doubled_number) {doubled_number} else {0}
-        }
-    ).sum()
+    (front_number..=back_number)
+        .map(|current_number| {
+            let doubled_number = (current_number.to_string() + &current_number.to_string())
+                .parse()
+                .unwrap();
+            if interval.contains(&doubled_number) {
+                doubled_number
+            } else {
+                0
+            }
+        })
+        .sum()
 
     /*
     let mut sum = 0;

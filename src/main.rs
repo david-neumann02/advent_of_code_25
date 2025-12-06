@@ -13,7 +13,7 @@ use std::io::{BufReader, Read};
 use std::sync::LazyLock;
 use std::time::Instant;
 
-struct Paths{
+struct Paths {
     day1: &'static OsStr,
     day2: &'static OsStr,
     day3: &'static OsStr,
@@ -25,7 +25,7 @@ struct Paths{
     day17: &'static OsStr,*/
 }
 
-static PATHS: LazyLock<Paths> = LazyLock::new(|| Paths{
+static PATHS: LazyLock<Paths> = LazyLock::new(|| Paths {
     day1: OsStr::new(r"data/day1/input.txt"),
     day2: OsStr::new(r"data/day2/input.txt"),
     day3: OsStr::new("data/day3/input.txt"),
@@ -46,12 +46,14 @@ fn main() {
     println!("{:?}, Duration: {:?}", res, duration)
 }
 
-fn get_input(path_string: &OsStr) -> String{
+fn get_input(path_string: &OsStr) -> String {
     let mut ret_string = String::new();
-    BufReader::new(File::open(path_string).unwrap()).read_to_string(&mut ret_string).unwrap();
+    BufReader::new(File::open(path_string).unwrap())
+        .read_to_string(&mut ret_string)
+        .unwrap();
     ret_string
 }
 
-fn get_lines(string: &str) -> Vec<&str>{
+fn get_lines(string: &str) -> Vec<&str> {
     string.lines().collect()
 }
