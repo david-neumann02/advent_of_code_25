@@ -1,9 +1,6 @@
 use std::{
-    cmp::min,
-    collections::{btree_map::Range, vec_deque::Iter},
-    iter::{Repeat, RepeatN, repeat_n},
-    marker::PhantomData,
-    ops::{Deref, Index, IndexMut},
+    iter::repeat_n,
+    ops::{Index, IndexMut},
 };
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -75,7 +72,7 @@ impl Grid {
 }
 
 pub(crate) fn day4(input: &Vec<&str>) -> (u64, u64) {
-    let mut grid = Grid::new(&input);
+    let grid = Grid::new(&input);
 
     (part1(&grid), part2(grid))
 }
