@@ -43,7 +43,7 @@ fn sum_doubles(interval: &RangeInclusive<u64>) -> u64 {
 
     let back_number: u64 = n2.to_string().get(0..d2).unwrap().parse().unwrap();
 
-    println!("l1: {l1}, l2: {l2}, n1: {n1}, n2: {n2}, d1: {d1}, d2: {d2}");
+    // println!("l1: {l1}, l2: {l2}, n1: {n1}, n2: {n2}, d1: {d1}, d2: {d2}");
 
     (front_number..=back_number)
         .map(|current_number| {
@@ -65,7 +65,7 @@ fn sum_doubles(interval: &RangeInclusive<u64>) -> u64 {
     println!("l1:{l1}, l2: {l2}, n1: {n1}, n2: {n2}, d: {d}, current_number: {current_number}");
     while interval.contains(&current_number_doubled){
         sum += current_number_doubled;
-        println!("{current_number_doubled}");
+        //println!("{current_number_doubled}");
         current_number += 1;
         current_number_doubled = (current_number.to_string() + &current_number.to_string()).parse().unwrap();
     };
