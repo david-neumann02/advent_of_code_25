@@ -1,4 +1,4 @@
-use std::{collections::HashSet, ops::RangeInclusive};
+use std::{cmp::Ordering, collections::HashSet, ops::{Deref, RangeInclusive}};
 use itertools::Itertools;
 
 
@@ -25,6 +25,46 @@ fn part1(ingredient_range_vec: &Vec<RangeInclusive<u64>>, ingredient_vec: &Vec<u
             ).is_some()
         ).count() as u64
 }
+
+struct Range(RangeInclusive<u64>);
+
+impl Deref for Range{
+    type Target = RangeInclusive<u64>;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl PartialOrd for Range{
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(
+            match self.0.start().cmp(other.0.start()) {
+                Ordering::Greater => Ordering::Greater,
+                Ordering::Less => Ordering::Less,
+                Ordering::Equal => {
+                    self.0.end().cmp(other.0.end())
+                }
+            }
+        )
+    }
+}
+
+impl PartialEq for Range{
+    fn eq(&self, other: &Self) -> bool {
+        self.0.start() == other.0.start() && self.0.end() == other.0.end()
+    }
+}
+
+impl Eq for Range {}
+
+impl Ord for Range{
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        self.partial_cmp(other).unwrap()
+    }
+}
+
+
 
 fn part2(ingredient_range_vec: Vec<RangeInclusive<u64>>) -> u64 {
     ingredient_range_vec.into_iter()
