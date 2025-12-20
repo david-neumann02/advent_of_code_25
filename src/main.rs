@@ -11,6 +11,7 @@ use day4::day4;
 use day5::day5;
 
 use std::ffi::OsStr;
+use std::fmt::Debug;
 use std::fs::File;
 use std::io::{BufReader, Read};
 use std::sync::LazyLock;
@@ -40,46 +41,42 @@ static PATHS: LazyLock<Paths> = LazyLock::new(|| Paths {
     day9: OsStr::new(r"data/day9/input.txt"),*/
 });
 
+struct DaySolution<T: Sized + Debug>{
+    input_path: &'static OsStr,
+    day_number: u32,
+    solve_function: fn(&Vec<&str>) -> T
+}
+
+impl <T: Sized + Debug> DaySolution<T> {
+    fn new(input_path: &'static OsStr, day_number: u32, solve_function: fn(&Vec<&str>) -> T) -> DaySolution<T> {
+        DaySolution { input_path, day_number, solve_function }
+    }
+}
+
 fn main() {
     //day 1
-    let start = Instant::now();
-    let input = get_input(PATHS.day1);
-    let lines = get_lines(&input);
-    let res = day1(&lines);
-    let duration = start.elapsed();
-    println!("Day 1 Result: {:?}, Duration: {:?}", res, duration);
+    run_day(DaySolution::new(PATHS.day1, 1, day1));
 
     //day 2 (Currently not correct)
-    let start = Instant::now();
-    let input = get_input(PATHS.day2);
-    let lines = get_lines(&input);
-    let res = day2(&lines);
-    let duration = start.elapsed();
-    println!("Day 2 Result (currently wrong): {:?}, Duration: {:?}", res, duration);
+    run_day(DaySolution::new(PATHS.day2, 2, day2));
 
     //day 3
-    let start = Instant::now();
-    let input = get_input(PATHS.day3);
-    let lines = get_lines(&input);
-    let res = day3(&lines);
-    let duration = start.elapsed();
-    println!("Day 3 Result: {:?}, Duration: {:?}", res, duration);
+    run_day(DaySolution::new(PATHS.day3, 3, day3));
 
     //day 4
-    let start = Instant::now();
-    let input = get_input(PATHS.day4);
-    let lines = get_lines(&input);
-    let res = day4(&lines);
-    let duration = start.elapsed();
-    println!("Day 4 Result: {:?}, Duration: {:?}", res, duration);
+    run_day(DaySolution::new(PATHS.day4, 4, day4));
 
     //day 5
+    run_day(DaySolution::new(PATHS.day5, 5, day5));
+}
+
+fn run_day<T: Debug + Sized>(day_solution: DaySolution<T>) {
     let start = Instant::now();
-    let input = get_input(PATHS.day5);
+    let input = get_input(day_solution.input_path);
     let lines = get_lines(&input);
-    let res = day5(&lines);
+    let res = (day_solution.solve_function)(&lines);
     let duration = start.elapsed();
-    println!("Day 5 Result: {:?}, Duration: {:?}", res, duration);
+    println!("Day {} Result: {:?}, Duration: {:?}", day_solution.day_number, res, duration)
 }
 
 fn get_input(path_string: &OsStr) -> String {

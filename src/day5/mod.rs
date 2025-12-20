@@ -2,7 +2,7 @@ use std::{cmp::Ordering, collections::HashSet, ops::{Deref, RangeInclusive}};
 use itertools::Itertools;
 
 
-pub(crate) fn day5(input: &[&str]) -> (u64, u64) {
+pub(crate) fn day5(input: &Vec<&str>) -> (u64, u64) {
     let (ingredient_range_strs, ingredient_strs) = input.split_at(input.iter().position(|l| l == &"").unwrap());
 
     let ingredient_range_vec: Vec<RangeInclusive<u64>> = ingredient_range_strs.iter()
@@ -67,6 +67,7 @@ impl Ord for Range{
 
 
 fn part2(ingredient_range_vec: Vec<RangeInclusive<u64>>) -> u64 {
+    return 0;
     ingredient_range_vec.into_iter()
         .map(|range| range.into_iter()).flatten().counts().len() as u64
 }
