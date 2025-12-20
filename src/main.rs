@@ -3,12 +3,14 @@ mod day2;
 mod day3;
 mod day4;
 mod day5;
+mod day6;
 
 use day1::day1;
 use day2::day2;
 use day3::day3;
 use day4::day4;
 use day5::day5;
+use day6::day6;
 
 use std::ffi::OsStr;
 use std::fmt::Debug;
@@ -23,8 +25,8 @@ struct Paths {
     day3: &'static OsStr,
     day4: &'static OsStr,
     day5: &'static OsStr,
-    /*day6: &'static OsStr,
-    day7: &'static OsStr,
+    day6: &'static OsStr,
+    /*day7: &'static OsStr,
     day8: &'static OsStr,
     day9: &'static OsStr,*/
 }
@@ -35,23 +37,11 @@ static PATHS: LazyLock<Paths> = LazyLock::new(|| Paths {
     day3: OsStr::new("data/day3/input.txt"),
     day4: OsStr::new(r"data/day4/input.txt"),
     day5: OsStr::new(r"data/day5/input.txt"),
-    /*day6: OsStr::new(r"data/day6/input.txt"),
-    day7: OsStr::new(r"data/day7/input.txt"),
+    day6: OsStr::new(r"data/day6/input.txt"),
+    /*day7: OsStr::new(r"data/day7/input.txt"),
     day8: OsStr::new(r"data/day8/input.txt"),
     day9: OsStr::new(r"data/day9/input.txt"),*/
 });
-
-struct DaySolution<T: Sized + Debug>{
-    input_path: &'static OsStr,
-    day_number: u32,
-    solve_function: fn(&Vec<&str>) -> T
-}
-
-impl <T: Sized + Debug> DaySolution<T> {
-    fn new(input_path: &'static OsStr, day_number: u32, solve_function: fn(&Vec<&str>) -> T) -> DaySolution<T> {
-        DaySolution { input_path, day_number, solve_function }
-    }
-}
 
 fn main() {
     //day 1
@@ -68,6 +58,21 @@ fn main() {
 
     //day 5
     run_day(DaySolution::new(PATHS.day5, 5, day5));
+
+    //day 6
+    run_day(DaySolution::new(PATHS.day6, 6, day6));
+}
+
+struct DaySolution<T: Sized + Debug>{
+    input_path: &'static OsStr,
+    day_number: u32,
+    solve_function: fn(&Vec<&str>) -> T
+}
+
+impl <T: Sized + Debug> DaySolution<T> {
+    fn new(input_path: &'static OsStr, day_number: u32, solve_function: fn(&Vec<&str>) -> T) -> DaySolution<T> {
+        DaySolution { input_path, day_number, solve_function }
+    }
 }
 
 fn run_day<T: Debug + Sized>(day_solution: DaySolution<T>) {
